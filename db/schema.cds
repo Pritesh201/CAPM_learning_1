@@ -5,7 +5,7 @@ using {
     managed
 } from '@sap/cds/common';
 
-type nameType: String(50);
+type nameType : String(50);
 
 entity Students : cuid, managed {
     //key student_id : UUID;
@@ -24,5 +24,14 @@ entity Courses : cuid, managed {
     cost     : Decimal(10, 2);
     trainer  : String;
     duration : Integer;
+
+}
+
+entity Address {
+    key addressID   : Integer;
+        description : String;
+        city        : String;
+        country     : String;
+        pincode     : Integer;
 
 }
