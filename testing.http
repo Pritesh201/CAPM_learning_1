@@ -28,3 +28,27 @@ Content-Type: application/json
 ### Delete
 
 DELETE http://localhost:4004/odata/v4/student-api/StudentSet('11cbed74-793e-4255-9c4a-a53e919a0f40')
+
+
+
+### Post
+
+POST http://localhost:4004/odata/v4/student-api/Authors
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "books": [
+        {
+            "name"    : "SAP Learning",
+            "title"   : "BTP",
+            "publishedDate": "10-09-2025"
+        },
+        {
+            "name"    : "SAP CAPM Learning",
+            "title"   : "SAP CAPM",
+            "publishedDate": "11-09-2025"
+        }
+    ]
+
+}
