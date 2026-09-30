@@ -1,0 +1,208 @@
+{
+  "_version": "1.89.0",
+  "sap.app": {
+    "id": "com.customer.app.customerorderdetails",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.32.0",
+      "toolsId": "1ded2be8-531b-4191-b078-b3bd3e7e23f0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/student-api/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.152.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.customer.app.customerorderdetails.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CustomerList",
+          "target": "CustomerList"
+        },
+        {
+          "pattern": "Customer({key}):?query:",
+          "name": "CustomerObjectPage",
+          "target": "CustomerObjectPage"
+        },
+        {
+          "name": "Customer_orderNoObjectPage",
+          "pattern": "Customer({key})/orderNo({orderNoKey}):?query:",
+          "target": "Customer_orderNoObjectPage"
+        }
+      ],
+      "targets": {
+        "CustomerList": {
+          "type": "Component",
+          "id": "CustomerList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Customer",
+              "variantManagement": "Page",
+              "navigation": {
+                "Customer": {
+                  "detail": {
+                    "route": "CustomerObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              },
+              "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView"
+            }
+          }
+        },
+        "CustomerObjectPage": {
+          "type": "Component",
+          "id": "CustomerObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Customer",
+              "controlConfiguration": {
+                "orderNo/@com.sap.vocabularies.UI.v1.LineItem#OrderDetails": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "orderNo/@com.sap.vocabularies.UI.v1.LineItem#Orders": {
+                  "tableSettings": {
+                    "type": "GridTable",
+                    "creationMode": {
+                      "name": "Inline"
+                    }
+                  }
+                }
+              },
+              "navigation": {
+                "orderNo": {
+                  "detail": {
+                    "route": "Customer_orderNoObjectPage"
+                  }
+                }
+              },
+              "content": {
+                "header": {
+                  "actions": {
+                    "statusBtnID": {
+                      "press": "com.customer.app.customerorderdetails.ext.controller.CustomActionHandler.updateCustomerStatus",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "Update Status",
+                      "position": {
+                        "placement": "Before",
+                        "anchor": "EditAction"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Customer_orderNoObjectPage": {
+          "type": "Component",
+          "id": "Customer_orderNoObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/Customer/orderNo",
+              "controlConfiguration": {
+                "orderItems/@com.sap.vocabularies.UI.v1.LineItem#OrderItems": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}

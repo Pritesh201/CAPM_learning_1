@@ -52,3 +52,12 @@ Content-Type: application/json
     ]
 
 }
+
+#### posting in employees vw
+
+POST http://localhost:4004/odata/v4/student-api/ITEmployee
+Content-Type: application/json
+
+{
+    "name": "Pritesh"
+}
